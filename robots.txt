@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alaaqil.com/sitemap.xml
