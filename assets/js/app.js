@@ -385,11 +385,11 @@ function renderProfilePage() {
                 <div class="important-links-box">
                     <h3><i class="fa-solid fa-star"></i> روابط مهمة لمنصة العاقل والمتجر</h3>
                     <div class="links-grid">
-                        <a href="https://t.me/your_store_link" target="_blank" class="external-link-card">
+                        <a href="https://t.me/Al3agl_bot" target="_blank" class="external-link-card">
                             <span><i class="fa-solid fa-store"></i> رابط المتجر الرسمي</span>
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
-                        <a href="https://t.me/your_group_link" target="_blank" class="external-link-card">
+                        <a href="https://t.me/Al_3agle" target="_blank" class="external-link-card">
                             <span><i class="fa-brands fa-telegram"></i> قروب التليجرام العام</span>
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
