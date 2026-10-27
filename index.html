@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة المقابلات العسكرية الفائقة</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black text-white min-h-screen font-sans overflow-x-hidden selection:bg-amber-500 selection:text-black">
+
+    <!-- خلفية النجوم الذهبية المتحركة -->
+    <canvas id="starsCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- الحاوية الرئيسية للتطبيق -->
+    <div id="app-container" class="relative z-10 max-w-4xl mx-auto px-4 pb-28 pt-6">
+
+        <!-- هيدر الموقع -->
+        <header class="flex justify-between items-center mb-6 pb-4 border-b border-amber-500/20 backdrop-blur-md bg-black/40 p-4 rounded-2xl">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center shadow-lg shadow-amber-500/30">
+                    <i class="fa-solid fa-shield-halved text-black text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide text-amber-400">بوابة المقابلات العسكرية</h1>
+                    <p class="text-xs text-zinc-400">النظام الشامل والمطور للاختبارات العسكرية</p>
+                </div>
+            </div>
+            <div id="user-badge" class="hidden items-center bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-full text-xs text-amber-300">
+                <i class="fa-solid fa-user-check ml-1.5"></i>
+                <span id="logged-username">مستخدم تيليجرام</span>
+            </div>
+        </header>
+
+        <!-- المحتوى الديناميكي للصفحات الخمس -->
+        <main id="main-content">
+            <!-- سيتم حقن الصفحات هنا ديناميكياً بواسطة app.js -->
+        </main>
+
+    </div>
+
+    <!-- شريط التنقل السفلي الانسيابي -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-t border-amber-500/20 py-3 px-4 max-w-2xl mx-auto rounded-t-3xl shadow-2xl">
+        <div class="flex justify-around items-center">
+            <button onclick="switchPage('home')" id="nav-home" class="nav-btn flex flex-col items-center text-amber-400 transition-all duration-300">
+                <i class="fa-solid fa-house text-lg mb-1"></i>
+                <span class="text-[10px]">الرئيسية</span>
+            </button>
+            <button onclick="switchPage('history')" id="nav-history" class="nav-btn flex flex-col items-center text-zinc-500 hover:text-amber-400 transition-all duration-300">
+                <i class="fa-solid fa-clock-rotate-left text-lg mb-1"></i>
+                <span class="text-[10px]">الأخطاء والمراجعة</span>
+            </button>
+            <button onclick="switchPage('forum')" id="nav-forum" class="nav-btn flex flex-col items-center text-zinc-500 hover:text-amber-400 transition-all duration-300">
+                <i class="fa-solid fa-comments text-lg mb-1"></i>
+                <span class="text-[10px]">أسئلة الناس</span>
+            </button>
+            <button onclick="switchPage('profile')" id="nav-profile" class="nav-btn flex flex-col items-center text-zinc-500 hover:text-amber-400 transition-all duration-300">
+                <i class="fa-solid fa-user-shield text-lg mb-1"></i>
+                <span class="text-[10px]">حسابي والدعم</span>
+            </button>
+            <button onclick="switchPage('admin')" id="nav-admin" class="nav-btn flex flex-col items-center text-zinc-500 hover:text-amber-400 transition-all duration-300">
+                <i class="fa-solid fa-lock text-lg mb-1"></i>
+                <span class="text-[10px]">الأدمن</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- نافذة الاختبار المنبثقة -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-950 border border-amber-500/30 rounded-3xl max-w-2xl w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeQuiz()" class="absolute top-4 left-4 text-zinc-400 hover:text-white bg-zinc-900 w-10 h-10 rounded-full flex items-center justify-center transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="quiz-content"></div>
+        </div>
+    </div>
+
+    <!-- ملفات الجافاسكريبت -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
