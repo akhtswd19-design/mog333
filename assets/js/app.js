@@ -359,20 +359,42 @@ function renderProfilePage() {
                 <p>قم بربط حسابك عبر تيليجرام لحفظ نتائج اختباراتك السابقة، وسجل تقدمك التعليمي بشكل دائم بين أجهزتك.</p>
                 
                 <div style="background: rgba(36, 161, 222, 0.05); border: 1px solid rgba(36, 161, 222, 0.2); border-radius: 14px; padding: 1.2rem; margin: 1.5rem 0; font-size: 0.95rem; text-align: right; line-height: 1.6;">
-                    <strong>💡 هل يمدي ربط التسجيل حق التلي بالموقع؟</strong><br>
-                    نعم بكل تأكيد! يتم استخدام مصادقة تيليجرام الآمنة (Telegram Login Widget / Bot Auth) لربط حسابك بالموقع، مما يتيح حفظ معلومات الاختبارات السابقة والوصول إليها فورياً.
+                    <strong>💡 ربط تسجيل الدخول الحقيقي:</strong><br>
+                    قم بتعديل يوزر بوتك في الكود أدناه (استبدل <code>AL3agl_bot</code> بيوزر بوتك الخاص) ليظهر زر التيليجرام الرسمي وتعمل المصادقة الفورية.
                 </div>
 
-                <button class="telegram-btn" onclick="simulateTelegramLogin()">
-                    <i class="fa-brands fa-telegram"></i> تسجيل الدخول عبر تيليجرام سريعاً
-                </button>
+                <div id="telegram-login-container" style="margin-top: 20px; display: flex; justify-content: center;"></div>
             </div>
         `;
+
+        // حقن زر تيليجرام الرسمي الحقيقي تلقائياً
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = "https://telegram.org/js/telegram-widget.js?22";
+        script.setAttribute('data-telegram-login', 'AL3agl_bot'); // استبدل هذا بيوزر بوتك الفعلي بدون علامة @
+        script.setAttribute('data-size', 'large');
+        script.setAttribute('data-userpic', 'true');
+        script.setAttribute('data-auth-url', 'https://your-website.com/auth-callback'); // رابط استقبال بيانات السيرفر أو يمكنك توجيهه لصفحة المعالجة
+        script.setAttribute('data-request-access', 'write');
+        
+        // دالة استقبال الرد مباشرة في الواجهة (في حال لم تستخدم سيرفر خلفي وتريد التقاط بيانات الـ Callback)
+        window.onTelegramAuth = function(user) {
+            currentUser = user;
+            localStorage.setItem('al_aaqil_user', JSON.stringify(currentUser));
+            updateHeaderUser();
+            renderProfilePage();
+        };
+        script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+
+        const tgContainer = document.getElementById('telegram-login-container');
+        if (tgContainer) {
+            tgContainer.appendChild(script);
+        }
     } else {
         container.innerHTML = `
             <div class="user-profile-card">
                 <div class="user-avatar-lg">
-                    <i class="fa-solid fa-user-astronaut"></i>
+                    ${currentUser.photo_url ? `<img src="${currentUser.photo_url}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" alt="Avatar">` : '<i class="fa-solid fa-user-astronaut"></i>'}
                 </div>
                 <h2>${currentUser.first_name || currentUser.username}</h2>
                 <p class="text-gold" style="margin-bottom: 0.5rem;">@${currentUser.username || 'al_aaqil_user'}</p>
@@ -398,20 +420,6 @@ function renderProfilePage() {
             </div>
         `;
     }
-}
-
-function simulateTelegramLogin() {
-    // Simulated Telegram OAuth response for smooth instant login as requested
-    const mockUser = {
-        id: 987654321,
-        first_name: "العاقل الذكي",
-        username: "AlAaqilUser",
-        auth_date: Math.floor(Date.now() / 1000)
-    };
-    currentUser = mockUser;
-    localStorage.setItem('al_aaqil_user', JSON.stringify(currentUser));
-    updateHeaderUser();
-    renderProfilePage();
 }
 
 function logoutTelegram() {
